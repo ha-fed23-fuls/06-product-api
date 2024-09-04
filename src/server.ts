@@ -1,5 +1,6 @@
 // Konfiguration + imports
 import express, { Express, NextFunction, Request, Response } from 'express'
+import { router } from './products.js'
 const app: Express = express()
 const port = 1338
 
@@ -13,6 +14,8 @@ app.use('/', (req: Request, res: Response, next: NextFunction) => {
 })
 
 // Endpoints - importeras från separata filer!
+app.use('/products', router)
+
 
 // Starta servern
 app.listen(port, () => {
