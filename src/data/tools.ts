@@ -4,6 +4,11 @@ export interface Tool {
 	price: number;
 	category: string;
 }
+export interface ToolNoId {
+	name: string;
+	price: number;
+	category: string;
+}
 
 export const tools: Tool[] = [
 	{ id: 1, name: "Hammare", price: 199, category: "Slagverktyg" },
@@ -17,3 +22,17 @@ export const tools: Tool[] = [
 	// { id: 9, name: "Spikpistol", price: 1299, category: "Elverktyg" },
 	// { id: 10, name: "Sandpapper", price: 29, category: "Slipverktyg" }
 ];
+
+function generateId(): number {
+	let max = 0
+	tools.forEach(tool => {
+		if( tool.id > max ) {
+			max = tool.id
+		}
+	})
+	return max + 1
+}
+export function addTool(newTool: ToolNoId): void {
+	const tool: Tool = { ...newTool, id: generateId() }
+	tools.push(tool)
+}
