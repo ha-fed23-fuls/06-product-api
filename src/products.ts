@@ -1,5 +1,6 @@
 import express, { Router, Request, Response } from 'express'
 import { tools, Tool, ToolNoId, addTool } from './data/tools.js'
+import { isToolNoId } from './data/validation.js'
 
 export const router: Router = express.Router()
 
@@ -33,11 +34,15 @@ router.get('/:id', (req: Request<IdParam>, res: Response) => {
 	}
 })
 
-// TODO:
+
 // POST /products  <- lägga till en ny produkt, ha med BODY
 router.post('/', (req: Request<void, void, ToolNoId>, res: Response) => {
 	const newTool: ToolNoId = req.body
-	// TODO: validera så vi vet att newTool är ett korrekt Tool-objekt
+	// Validera så vi vet att newTool är ett korrekt Tool-objekt
+	if( !isToolNoId(newTool) ) {
+		res.sendStatus(400)  // Felaktigt objekt == 400 Bad request
+		return
+	}
 	// console.log('Body innehåller tool-objektet: ', newTool)
 	addTool(newTool)
 	res.sendStatus(201)
