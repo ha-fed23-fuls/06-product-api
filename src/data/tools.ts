@@ -10,7 +10,7 @@ export interface ToolNoId {
 	category: string;
 }
 
-export const tools: Tool[] = [
+export let tools: Tool[] = [
 	{ id: 1, name: "Hammare", price: 199, category: "Slagverktyg" },
 	{ id: 2, name: "Skruvmejsel", price: 79, category: "Handverktyg" },
 	{ id: 3, name: "Tång", price: 129, category: "Handverktyg" },
@@ -35,4 +35,8 @@ function generateId(): number {
 export function addTool(newTool: ToolNoId): void {
 	const tool: Tool = { ...newTool, id: generateId() }
 	tools.push(tool)
+}
+
+export function deleteTool(id: number): void {
+	tools = tools.filter(tool => tool.id !== id)
 }
